@@ -1,0 +1,29 @@
+#!-----------------------------------------------------------------------------
+#!-----------------------------------------------------------------------------
+#!-----------------------------------------------------------------------------
+#GROUP(%XMLDOCHANDLEBEG)
+#!-----------------------------------------------------------------------------
+#GROUP(%HandleProcedureTemplate, %sTemplateName), PRESERVE, AUTO
+  #ADD(%UsedTemplates, %sTemplateName)
+  #SET(%UsedTemplateIsHandled, %True)
+  #CONTEXT(%Procedure, %ActiveTemplateInstance)
+    #CASE(%sTemplateName)
+    #ELSE
+      #SET(%UsedTemplateIsHandled, %False)
+    #ENDCASE
+  #ENDCONTEXT
+#!-----------------------------------------------------------------------------
+#GROUP(%HandleApplicationTemplate, %sTemplateName), PRESERVE, AUTO
+  #ADD(%UsedTemplates, %sTemplateName)
+  #SET(%UsedTemplateIsHandled, %True)
+  #CONTEXT(%Application, %ApplicationTemplateInstance)
+    #CASE(%sTemplateName)
+    #ELSE
+      #SET(%UsedTemplateIsHandled, %False)
+    #ENDCASE
+  #ENDCONTEXT
+#!-----------------------------------------------------------------------------
+#GROUP(%XMLDOCHANDLEEND)
+#!-----------------------------------------------------------------------------
+#!-----------------------------------------------------------------------------
+#!-----------------------------------------------------------------------------

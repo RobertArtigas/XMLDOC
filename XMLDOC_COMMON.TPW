@@ -1,0 +1,81 @@
+#!-----------------------------------------------------------------------------
+#!-----------------------------------------------------------------------------
+#!-----------------------------------------------------------------------------
+#GROUP(%XMLDOCCOMMONBEG)
+#!-----------------------------------------------------------------------------
+#GROUP(%ReplaceSubString, *%pString, %OldSubString, %NewSubString, %pCaseSensitive = 0), AUTO
+  #DECLARE(%lPosition, LONG)
+  #DECLARE(%lLen, LONG)
+  #SET(%lPosition, 1)
+  #SET(%lLen, LEN(%OldSubString))
+  #LOOP
+    #IF(%pCaseSensitive)
+      #SET(%lPosition, INSTRING(%OldSubString, %pString, 1, %lPosition))
+    #ELSE
+      #SET(%lPosition, INSTRING(UPPER(%OldSubString), UPPER(%pString), 1, %lPosition))
+    #ENDIF
+    #IF(%lPosition = 0)
+      #BREAK
+    #ELSE
+      #SET(%pString, SUB(%pString, 1, %lPosition - 1) & %NewSubString & SUB(%pString, %lPosition + %lLen, LEN(CLIP(%pString)) - %lPosition))
+      #SET(%lPosition, %lPosition + LEN(%NewSubString))
+    #ENDIF
+  #ENDLOOP
+#!-----------------------------------------------------------------------------
+#GROUP(%WriteTag, %TagName, %TheValue)
+  #RETURN('<' & %TagName & '>' & %TheValue & '</' & %TagName & '>')
+#!-----------------------------------------------------------------------------
+#GROUP(%GetStringValue, %TheValue), AUTO
+  #DECLARE(%sValue)
+  #SET(%sValue, CLIP(LEFT(%TheValue)))
+  #CALL(%ReplaceSubString, %sValue, '&', '&amp;')
+  #CALL(%ReplaceSubString, %sValue, '<', '&lt;')
+  #CALL(%ReplaceSubString, %sValue, '>', '&gt;')
+  #RETURN(%sValue)
+#!-----------------------------------------------------------------------------
+#GROUP(%GetTimeValue, %TheTime)
+  #RETURN(CLIP(LEFT(FORMAT(%TheTime, @T3))))
+#!-----------------------------------------------------------------------------
+#GROUP(%GetDateValue, %TheDate)
+  #RETURN(CLIP(LEFT(FORMAT(%TheDate, @D2))))
+#!-----------------------------------------------------------------------------
+#GROUP(%GetBooleanValue, %TheValue)
+  #RETURN(CHOOSE(%TheValue = '1', 'true', 'false'))
+#!-----------------------------------------------------------------------------
+#GROUP(%GetVersionInfo, %TheVersion)
+  #RETURN(%TheVersion)
+#!-----------------------------------------------------------------------------
+#GROUP(%GetQuickOptions, %TheOptions)
+  #RETURN(%TheOptions)
+#!-----------------------------------------------------------------------------
+#GROUP(%GetUserOptions, %TheOptions)
+  #RETURN(%TheOptions)
+#!-----------------------------------------------------------------------------
+#GROUP(%GetToolOptions, %TheOptions)
+  #RETURN(%TheOptions)
+#!-----------------------------------------------------------------------------
+#! RA.2010.10.05 - Added me to the notice. Just in case anyone wants to know.
+#!
+#GROUP(%Notice)
+#BOXED(' NOTICE ')
+  #DISPLAY('')
+  #DISPLAY('Author: Harley H. Jones')
+  #DISPLAY('Email: harley_333@hotmail.com')
+  #DISPLAY('')
+  #DISPLAY('You may use this template in any manner you wish.')
+  #DISPLAY('I am not responsible for any damage it may cause.')
+  #DISPLAY('You may NOT sell this template in any form,')
+  #DISPLAY('     without my express written permission.')
+  #DISPLAY('')
+  #DISPLAY('Modifier: Roberto Artigas')
+  #DISPLAY('Email: roberto.artigas.dev@gmail.com')
+  #DISPLAY('')
+  #DISPLAY('Corrections and suggestions are welcome.')
+  #DISPLAY('')
+  #PROMPT('Updated: ', @D4), %pDateModified, PROP(PROP:Readonly, 1), PROP(PROP:Trn, 1), PROP(PROP:Skip, 1)
+#ENDBOXED
+#!-----------------------------------------------------------------------------
+#GROUP(%XMLDOCCOMMONEND)
+#!-----------------------------------------------------------------------------
+#!-----------------------------------------------------------------------------
+#!-----------------------------------------------------------------------------
