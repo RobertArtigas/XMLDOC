@@ -5,7 +5,7 @@ This Clarion template was found a while back out in internet land. The original 
 
 This is very useful in a number of points, it provides understanding of the internal field definitions, it allows you to find some of the more obscure definitions that are not commonly used in the DCTX definition, it provides some context where things do NOT match what you know, and it provides a reference to what is NOT showing because of some default or the field being blank or zero.
 
-There is also NO create APX utility since that is a slightly more complicated endeavor, and this can give you some insight on how things are tied together between the DCTX and a possible APPX.
+There is also NO create APPX utility except as provided by this template since that is a slightly more complicated endeavor, and this template can give you some insight on how things are tied together between the DCTX and a possible APPX.
 
 ##
 ###
